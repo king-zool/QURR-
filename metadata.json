@@ -1,0 +1,6 @@
+{
+  "name": "QURRĀ’ NIGERIA",
+  "description": "Preserving the Voices of the Qur’an. Discover, listen to, and preserve the recitation heritage of Nigeria's Qur'an reciters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
