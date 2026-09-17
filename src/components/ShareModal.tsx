@@ -39,41 +39,41 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150">
       <div 
-        className="w-full max-w-md bg-[#FCFBF9] rounded-2xl shadow-2xl border border-[#E2DDD3] p-6 space-y-5"
+        className="w-full max-w-md bg-[#FCFBF9] dark:bg-[#121B17] rounded-2xl shadow-2xl border border-[#E2DDD3] dark:border-[#22332A] p-6 space-y-5 transition-colors duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-[#064E3B]">
+          <div className="flex items-center gap-2 text-[#064E3B] dark:text-[#34D399]">
             <Share2 className="w-5 h-5" />
-            <h3 className="text-base font-bold text-[#1B211E]">Share Recitation</h3>
+            <h3 className="text-base font-bold text-[#1B211E] dark:text-[#F0EDE6]">Share Recitation</h3>
           </div>
           <button 
             onClick={onClose}
-            className="p-1 rounded-md text-[#78847E] hover:bg-[#F0ECE2]"
+            className="p-1 rounded-md text-[#78847E] dark:text-[#9DAAA3] hover:bg-[#F0ECE2] dark:hover:bg-[#1B2822] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-[#181D1B]">{title}</h4>
-          <p className="text-xs text-[#636F69] mt-0.5">{subtitle}</p>
+          <h4 className="text-sm font-semibold text-[#181D1B] dark:text-[#F0EDE6]">{title}</h4>
+          <p className="text-xs text-[#636F69] dark:text-[#9AA6A0] mt-0.5">{subtitle}</p>
         </div>
 
         {/* Copy Link Input */}
-        <div className="flex items-center gap-2 p-1.5 bg-white border border-[#DDD9CE] rounded-xl">
+        <div className="flex items-center gap-2 p-1.5 bg-white dark:bg-[#16231E] border border-[#DDD9CE] dark:border-[#24342C] rounded-xl">
           <input
             type="text"
             readOnly
             value={url}
-            className="w-full bg-transparent px-2 text-xs text-[#333D38] focus:outline-hidden font-mono truncate"
+            className="w-full bg-transparent px-2 text-xs text-[#333D38] dark:text-[#D1DDD6] focus:outline-hidden font-mono truncate"
           />
           <button
             onClick={handleCopy}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors shrink-0 ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer ${
               copied 
                 ? 'bg-[#064E3B] text-white' 
-                : 'bg-[#F2EFE8] hover:bg-[#E7E3D8] text-[#29322E]'
+                : 'bg-[#F2EFE8] dark:bg-[#202E27] hover:bg-[#E7E3D8] dark:hover:bg-[#273930] text-[#29322E] dark:text-[#E2EAE5]'
             }`}
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -85,7 +85,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         <div className="grid grid-cols-2 gap-3 pt-2">
           <button
             onClick={shareWhatsApp}
-            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#D5D0C3] bg-white hover:bg-[#25D366]/10 hover:border-[#25D366] text-[#1E2522] text-xs font-medium transition-colors"
+            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#D5D0C3] dark:border-[#26372F] bg-white dark:bg-[#16231E] hover:bg-[#25D366]/10 hover:border-[#25D366] text-[#1E2522] dark:text-[#E2EAE5] text-xs font-medium transition-colors cursor-pointer"
           >
             <MessageSquare className="w-4 h-4 text-[#25D366]" />
             <span>WhatsApp</span>
@@ -93,14 +93,14 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
           <button
             onClick={shareTwitter}
-            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#D5D0C3] bg-white hover:bg-stone-100 text-[#1E2522] text-xs font-medium transition-colors"
+            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#D5D0C3] dark:border-[#26372F] bg-white dark:bg-[#16231E] hover:bg-stone-100 dark:hover:bg-[#1C2C25] text-[#1E2522] dark:text-[#E2EAE5] text-xs font-medium transition-colors cursor-pointer"
           >
-            <Twitter className="w-4 h-4 text-stone-800" />
+            <Twitter className="w-4 h-4 text-stone-800 dark:text-stone-200" />
             <span>Share on X</span>
           </button>
         </div>
 
-        <p className="text-[11px] text-center text-[#828F88] pt-1">
+        <p className="text-[11px] text-center text-[#828F88] dark:text-[#7A8A83] pt-1">
           All audio on Qurrā’ Nigeria is preserved for education and spiritual devotion.
         </p>
       </div>

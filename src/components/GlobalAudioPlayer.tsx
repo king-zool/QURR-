@@ -101,56 +101,56 @@ export const GlobalAudioPlayer: React.FC<GlobalAudioPlayerProps> = ({
     <>
       {/* Queue Drawer Modal */}
       {isQueueOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex justify-end animate-in fade-in duration-150">
-          <div className="w-full max-w-md bg-[#FCFBF9] h-full shadow-2xl flex flex-col border-l border-[#E2DDD3]">
-            <div className="p-4 border-b border-[#E8E4DA] flex items-center justify-between">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex justify-end animate-in fade-in duration-150">
+          <div className="w-full max-w-md bg-[#FCFBF9] dark:bg-[#111A16] h-full shadow-2xl flex flex-col border-l border-[#E2DDD3] dark:border-[#22332A] transition-colors duration-200">
+            <div className="p-4 border-b border-[#E8E4DA] dark:border-[#22332A] flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold text-[#1E2421]">Listening Queue</h3>
-                <p className="text-xs text-[#6B7570]">{queue.length} recitations lined up</p>
+                <h3 className="text-base font-bold text-[#1E2421] dark:text-[#F0EDE6]">Listening Queue</h3>
+                <p className="text-xs text-[#6B7570] dark:text-[#9AA6A0]">{queue.length} recitations lined up</p>
               </div>
               <button 
                 onClick={() => setIsQueueOpen(false)}
-                className="p-1.5 rounded-md hover:bg-[#EFECE3] text-[#555E59]"
+                className="p-1.5 rounded-md hover:bg-[#EFECE3] dark:hover:bg-[#1B2822] text-[#555E59] dark:text-[#A6B2AC] cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 divide-y divide-[#EFECE3]">
+            <div className="flex-1 overflow-y-auto p-4 divide-y divide-[#EFECE3] dark:divide-[#1B2922]">
               {queue.map((track, idx) => {
                 const isCurrent = idx === queueIndex;
                 return (
                   <div 
                     key={`${track.surah.number}-${idx}`}
                     className={`py-3 px-2 flex items-center justify-between rounded-lg transition-colors ${
-                      isCurrent ? 'bg-[#064E3B]/10' : 'hover:bg-[#F5F2EA]'
+                      isCurrent ? 'bg-[#064E3B]/10 dark:bg-[#064E3B]/30' : 'hover:bg-[#F5F2EA] dark:hover:bg-[#16231D]'
                     }`}
                   >
                     <div 
                       className="flex items-center gap-3 cursor-pointer flex-1 min-w-0"
                       onClick={() => playTrack(track.reciter, track.surah, track.audioUrl)}
                     >
-                      <span className={`text-xs font-mono w-6 text-center ${isCurrent ? 'text-[#064E3B] font-bold' : 'text-[#87928C]'}`}>
+                      <span className={`text-xs font-mono w-6 text-center ${isCurrent ? 'text-[#064E3B] dark:text-[#34D399] font-bold' : 'text-[#87928C] dark:text-[#7A8A83]'}`}>
                         {track.surah.number}
                       </span>
                       <div className="min-w-0">
-                        <div className="text-sm font-semibold text-[#1A1F1D] truncate flex items-center gap-1.5">
+                        <div className="text-sm font-semibold text-[#1A1F1D] dark:text-[#F0EDE6] truncate flex items-center gap-1.5">
                           {track.surah.englishName}
-                          <span className="font-arabic text-sm text-[#064E3B]">{track.surah.arabicName}</span>
+                          <span className="font-arabic text-sm text-[#064E3B] dark:text-[#34D399]">{track.surah.arabicName}</span>
                         </div>
-                        <p className="text-xs text-[#6B7570] truncate">{track.reciter.name}</p>
+                        <p className="text-xs text-[#6B7570] dark:text-[#9AA6A0] truncate">{track.reciter.name}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       {isCurrent && (
-                        <span className="text-[10px] uppercase font-bold text-[#064E3B] px-1.5 py-0.5 rounded bg-white border border-[#064E3B]/20">
+                        <span className="text-[10px] uppercase font-bold text-[#064E3B] dark:text-[#34D399] px-1.5 py-0.5 rounded bg-white dark:bg-[#1A2621] border border-[#064E3B]/20 dark:border-[#34D399]/30">
                           Now
                         </span>
                       )}
                       <button
                         onClick={() => removeFromQueue(idx)}
-                        className="text-xs text-[#9DA8A2] hover:text-red-600 px-1"
+                        className="text-xs text-[#9DA8A2] dark:text-[#788880] hover:text-red-600 dark:hover:text-red-400 px-1 cursor-pointer"
                         title="Remove from queue"
                       >
                         ✕

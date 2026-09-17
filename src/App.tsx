@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AudioProvider } from './context/AudioContext';
 import { LibraryProvider, useLibrary } from './context/LibraryContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { GlobalAudioPlayer } from './components/GlobalAudioPlayer';
@@ -11,7 +12,6 @@ import { HomeView } from './views/HomeView';
 import { RecitersView } from './views/RecitersView';
 import { ReciterProfileView } from './views/ReciterProfileView';
 import { QuranView } from './views/QuranView';
-import { HeritageView } from './views/HeritageView';
 import { SubmitReciterView } from './views/SubmitReciterView';
 import { AdminView } from './views/AdminView';
 import { CuratorLoginView } from './views/CuratorLoginView';
@@ -57,8 +57,6 @@ function AppContent() {
         }
       } else if (parts[0] === 'quran') {
         setActiveView('quran');
-      } else if (parts[0] === 'heritage') {
-        setActiveView('heritage');
       } else if (parts[0] === 'submit-reciter') {
         setActiveView('submit-reciter');
       } else if (parts[0] === 'curator-portal' || parts[0] === 'curator' || parts[0] === 'curator-gateway') {
@@ -97,8 +95,6 @@ function AppContent() {
       window.location.hash = `#/reciters/${slug}`;
     } else if (view === 'quran') {
       window.location.hash = '#/quran';
-    } else if (view === 'heritage') {
-      window.location.hash = '#/heritage';
     } else if (view === 'submit-reciter') {
       window.location.hash = '#/submit-reciter';
     } else if (view === 'curator-portal') {
@@ -136,7 +132,7 @@ function AppContent() {
     : null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#191E1C]">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F5] dark:bg-[#0B110F] text-[#191E1C] dark:text-[#F0EDE6] transition-colors duration-200">
       
       {/* Institutional Navbar */}
       <Navbar
@@ -171,12 +167,6 @@ function AppContent() {
           <QuranView
             onOpenShareModal={handleOpenShareModal}
             onNavigateToReciter={(slug) => navigateTo('reciter-profile', slug)}
-          />
-        )}
-
-        {activeView === 'heritage' && (
-          <HeritageView
-            onSelectReciter={(slug) => navigateTo('reciter-profile', slug)}
           />
         )}
 
@@ -240,10 +230,12 @@ function AppContent() {
 
 export default function App() {
   return (
-    <LibraryProvider>
-      <AudioProvider>
-        <AppContent />
-      </AudioProvider>
-    </LibraryProvider>
+    <ThemeProvider>
+      <LibraryProvider>
+        <AudioProvider>
+          <AppContent />
+        </AudioProvider>
+      </LibraryProvider>
+    </ThemeProvider>
   );
 }

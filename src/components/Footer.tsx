@@ -80,10 +80,10 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToTop('heritage')} 
+                  onClick={() => scrollToTop('about')} 
                   className="hover:text-white transition-colors text-left"
                 >
-                  Qur’anic Heritage
+                  About & Mission
                 </button>
               </li>
               <li>
@@ -186,7 +186,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="hover:text-white cursor-pointer" onClick={() => scrollToTop('about')}>
               About & Mission
             </span>
-            <span className="hover:text-white cursor-pointer" onClick={() => scrollToTop('heritage')}>
+            <span className="hover:text-white cursor-pointer" onClick={() => scrollToTop('about')}>
               Ethical Archiving Policy
             </span>
             <span className="hover:text-white cursor-pointer" onClick={() => scrollToTop('submit-reciter')}>

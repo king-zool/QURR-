@@ -1,9 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, ShieldCheck, Heart, Play, ChevronDown, Check, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
-import { Reciter, RiwayahType } from '../types';
-import { INITIAL_RECITERS } from '../data/reciters';
-import { SURAHS, NIGERIAN_STATES } from '../data/surahs';
-import { useAudio } from '../context/AudioContext';
+import { Search } from 'lucide-react';
+import { Reciter } from '../types';
+import { NIGERIAN_STATES } from '../data/surahs';
 import { useLibrary } from '../context/LibraryContext';
 
 interface RecitersViewProps {
@@ -23,8 +21,7 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
   const [sortBy, setSortBy] = useState<'featured' | 'listens' | 'az' | 'recent'>('featured');
   const [verifiedOnly, setVerifiedOnly] = useState(false);
 
-  const { playTrack, activeTrack, isPlaying, togglePlayPause } = useAudio();
-  const { toggleFavoriteReciter, isFavoriteReciter, reciters } = useLibrary();
+  const { reciters } = useLibrary();
 
   const riwayahOptions = [
     "All Riwāyāt",
@@ -89,7 +86,7 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
     });
 
     return result;
-  }, [searchQuery, selectedState, selectedRiwayah, verifiedOnly, sortBy]);
+  }, [searchQuery, selectedState, selectedRiwayah, verifiedOnly, sortBy, reciters]);
 
   const resetFilters = () => {
     setSearchQuery('');
@@ -104,34 +101,34 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
       
       {/* Page Header */}
       <div className="space-y-3 max-w-3xl">
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#064E3B] uppercase tracking-wider">
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#064E3B] dark:text-[#34D399] uppercase tracking-wider">
           <span>Official National Directory</span>
         </div>
-        <h1 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold text-[#141A17] tracking-tight">
+        <h1 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold text-[#141A17] dark:text-[#F3EFE6] tracking-tight">
           Nigerian Qur’an Reciters
         </h1>
-        <p className="text-base sm:text-lg text-[#525E58] leading-relaxed">
-          Explore reciters from across Nigeria and discover their recordings, biographies and Qur’anic traditions.
+        <p className="text-base sm:text-lg text-[#525E58] dark:text-[#9DAAA3] leading-relaxed">
+          Select any reciter to open their profile and explore their complete Qur’anic library.
         </p>
       </div>
 
       {/* Control Bar: Search & Filters */}
-      <div className="bg-white p-5 rounded-2xl border border-[#E3DDD1] shadow-xs space-y-4">
+      <div className="bg-white dark:bg-[#111A16] p-5 rounded-2xl border border-[#E3DDD1] dark:border-[#1E2C25] shadow-xs space-y-4">
         
         {/* Top Row: Search Input */}
         <div className="relative">
-          <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#79857F]" />
+          <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#79857F] dark:text-[#8D9B94]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by reciter name, Arabic name, state (e.g. Kano, Bauchi, Lagos), riwāyah, or institution..."
-            className="w-full pl-11 pr-4 py-3 bg-[#FAF8F3] rounded-xl border border-[#E1DBD0] text-sm text-[#1A201D] placeholder-[#79857F] focus:outline-hidden focus:border-[#064E3B] focus:bg-white transition-all"
+            placeholder="Search by reciter name, state (e.g. Kano, Bauchi, Lagos), riwāyah, or institution..."
+            className="w-full pl-11 pr-4 py-3 bg-[#FAF8F3] dark:bg-[#16231E] rounded-xl border border-[#E1DBD0] dark:border-[#22332B] text-sm text-[#1A201D] dark:text-[#F3EFE6] placeholder-[#79857F] dark:placeholder-[#76847E] focus:outline-hidden focus:border-[#064E3B] dark:focus:border-[#34D399] focus:bg-white dark:focus:bg-[#16231E] transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#79857F] hover:text-[#1A201D]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#79857F] hover:text-[#1A201D] dark:text-[#8D9B94] dark:hover:text-white cursor-pointer"
             >
               Clear
             </button>
@@ -143,13 +140,13 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
           
           {/* State Filter */}
           <div>
-            <label className="block text-[11px] font-semibold text-[#66726C] uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-[#66726C] dark:text-[#8D9B94] uppercase tracking-wider mb-1">
               State of Origin / Residence
             </label>
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF8F3] border border-[#E1DBD0] rounded-lg text-xs font-medium text-[#222A26] focus:outline-hidden focus:border-[#064E3B]"
+              className="w-full px-3 py-2 bg-[#FAF8F3] dark:bg-[#16231E] border border-[#E1DBD0] dark:border-[#22332B] rounded-lg text-xs font-medium text-[#222A26] dark:text-[#E2EAE5] focus:outline-hidden focus:border-[#064E3B] dark:focus:border-[#34D399]"
             >
               <option value="">All Nigerian States (36 + FCT)</option>
               {NIGERIAN_STATES.map(st => (
@@ -160,13 +157,13 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
 
           {/* Riwayah Filter */}
           <div>
-            <label className="block text-[11px] font-semibold text-[#66726C] uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-[#66726C] dark:text-[#8D9B94] uppercase tracking-wider mb-1">
               Canonical Riwāyah
             </label>
             <select
               value={selectedRiwayah}
               onChange={(e) => setSelectedRiwayah(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF8F3] border border-[#E1DBD0] rounded-lg text-xs font-medium text-[#222A26] focus:outline-hidden focus:border-[#064E3B]"
+              className="w-full px-3 py-2 bg-[#FAF8F3] dark:bg-[#16231E] border border-[#E1DBD0] dark:border-[#22332B] rounded-lg text-xs font-medium text-[#222A26] dark:text-[#E2EAE5] focus:outline-hidden focus:border-[#064E3B] dark:focus:border-[#34D399]"
             >
               {riwayahOptions.map(rw => (
                 <option key={rw} value={rw === "All Riwāyāt" ? "" : rw}>{rw}</option>
@@ -176,13 +173,13 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
 
           {/* Sort Selector */}
           <div>
-            <label className="block text-[11px] font-semibold text-[#66726C] uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-[#66726C] dark:text-[#8D9B94] uppercase tracking-wider mb-1">
               Sort By
             </label>
             <select
               value={sortBy}
               onChange={(e: any) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF8F3] border border-[#E1DBD0] rounded-lg text-xs font-medium text-[#222A26] focus:outline-hidden focus:border-[#064E3B]"
+              className="w-full px-3 py-2 bg-[#FAF8F3] dark:bg-[#16231E] border border-[#E1DBD0] dark:border-[#22332B] rounded-lg text-xs font-medium text-[#222A26] dark:text-[#E2EAE5] focus:outline-hidden focus:border-[#064E3B] dark:focus:border-[#34D399]"
             >
               <option value="featured">Featured First</option>
               <option value="listens">Most Listened</option>
@@ -193,7 +190,7 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
 
           {/* Verification toggle & Reset */}
           <div className="flex items-end justify-between gap-2">
-            <label className="flex items-center gap-2 cursor-pointer pb-2 text-xs font-medium text-[#303B35]">
+            <label className="flex items-center gap-2 cursor-pointer pb-2 text-xs font-medium text-[#303B35] dark:text-[#C4D0CA]">
               <input
                 type="checkbox"
                 checked={verifiedOnly}
@@ -206,7 +203,7 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
             {(selectedState || selectedRiwayah || searchQuery || verifiedOnly) && (
               <button
                 onClick={resetFilters}
-                className="pb-2 text-xs font-semibold text-[#064E3B] hover:underline whitespace-nowrap"
+                className="pb-2 text-xs font-semibold text-[#064E3B] dark:text-[#34D399] hover:underline whitespace-nowrap cursor-pointer"
               >
                 Reset Filters
               </button>
@@ -218,138 +215,56 @@ export const RecitersView: React.FC<RecitersViewProps> = ({
       </div>
 
       {/* Reciters Result Count */}
-      <div className="flex items-center justify-between text-xs text-[#63706A] px-1">
+      <div className="flex items-center justify-between text-xs text-[#63706A] dark:text-[#8D9B94] px-1">
         <span>Showing <strong>{filteredReciters.length}</strong> Nigerian reciters</span>
         {selectedState && (
-          <span className="px-2 py-0.5 rounded bg-[#064E3B]/10 text-[#064E3B] font-medium">
+          <span className="px-2 py-0.5 rounded bg-[#064E3B]/10 dark:bg-[#064E3B]/30 text-[#064E3B] dark:text-[#6EE7B7] font-medium">
             Filtered by State: {selectedState}
           </span>
         )}
       </div>
 
-      {/* Reciter Profiles Grid */}
+      {/* Reciters Grid - Name and Image Only and in a Circle */}
       {filteredReciters.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-[#E4DEC3] p-12 text-center space-y-3">
-          <p className="text-base font-semibold text-[#181E1C]">No reciters found matching your criteria</p>
-          <p className="text-xs text-[#6B7872] max-w-md mx-auto">
+        <div className="bg-white dark:bg-[#111A16] rounded-2xl border border-[#E4DEC3] dark:border-[#1E2C25] p-12 text-center space-y-3">
+          <p className="text-base font-semibold text-[#181E1C] dark:text-[#F3EFE6]">No reciters found matching your criteria</p>
+          <p className="text-xs text-[#6B7872] dark:text-[#9AA6A0] max-w-md mx-auto">
             Try resetting your search query or state/riwayah filter. If you know a reciter who should be documented, please submit them for preservation.
           </p>
           <button
             onClick={resetFilters}
-            className="px-4 py-2 rounded-lg bg-[#064E3B] text-white text-xs font-medium"
+            className="px-4 py-2 rounded-lg bg-[#064E3B] text-white text-xs font-medium cursor-pointer"
           >
             Clear all filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-8 pt-2">
           {filteredReciters.map((reciter) => {
-            const isFav = isFavoriteReciter(reciter.id);
-            const isThisReciterActive = activeTrack?.reciter.id === reciter.id;
-
             return (
-              <div
+              <button
+                type="button"
                 key={reciter.id}
-                className="bg-white rounded-2xl border border-[#E2DDD3] shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:border-[#064E3B]/40"
+                onClick={() => onSelectReciter(reciter.slug)}
+                className="flex flex-col items-center text-center group cursor-pointer p-3 rounded-2xl transition-all hover:bg-black/[0.03] dark:hover:bg-white/[0.03] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#064E3B]"
               >
-                {/* Photo & Badge header */}
-                <div className="relative aspect-16/10 bg-[#EFECE3] overflow-hidden">
+                {/* Circular image */}
+                <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden border-2 sm:border-3 border-[#D9D3C5] dark:border-[#22332A] group-hover:border-[#064E3B] dark:group-hover:border-[#34D399] shadow-xs group-hover:shadow-md transition-all duration-300 bg-[#EFECE3] dark:bg-[#1A2621]">
                   <img
                     src={reciter.photograph}
                     alt={reciter.name}
-                    className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-2">
-                    {reciter.verified && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/95 text-[#064E3B]">
-                        <ShieldCheck className="w-3 h-3 text-[#064E3B]" /> Verified
-                      </span>
-                    )}
-                    {reciter.completeQuranAvailable && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#064E3B] text-white">
-                        Full Qur’an (114)
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Favorite button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavoriteReciter(reciter.id);
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop';
                     }}
-                    className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors"
-                  >
-                    <Heart className={`w-4 h-4 ${isFav ? 'fill-red-500 text-red-500' : 'text-white'}`} />
-                  </button>
-
-                  {/* Riwayah tag */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/50 backdrop-blur-xs text-[#C29B38] border border-[#C29B38]/30">
-                      {reciter.riwayah}
-                    </span>
-                    <span className="text-xs text-stone-200">
-                      {reciter.city}, {reciter.state}
-                    </span>
-                  </div>
+                  />
                 </div>
 
-                {/* Body Content */}
-                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                  <div>
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 
-                        onClick={() => onSelectReciter(reciter.slug)}
-                        className="font-editorial text-xl font-bold text-[#141A17] hover:text-[#064E3B] cursor-pointer transition-colors"
-                      >
-                        {reciter.name}
-                      </h3>
-                    </div>
-
-                    <div className="font-arabic text-base text-[#064E3B] mt-0.5 font-medium">
-                      {reciter.arabicName}
-                    </div>
-
-                    {reciter.institution && (
-                      <p className="text-xs text-[#6C7872] mt-1.5 font-medium line-clamp-1">
-                        🏛️ {reciter.institution}
-                      </p>
-                    )}
-
-                    <p className="text-xs text-[#4C5551] mt-2.5 line-clamp-3 leading-relaxed">
-                      {reciter.biography}
-                    </p>
-                  </div>
-
-                  {/* Action row */}
-                  <div className="pt-3 border-t border-[#EFECE3] flex items-center justify-between gap-2">
-                    <button
-                      onClick={() => onSelectReciter(reciter.slug)}
-                      className="text-xs font-bold text-[#44514B] hover:text-[#064E3B] transition-colors"
-                    >
-                      View Profile & All Surahs →
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        if (isThisReciterActive && isPlaying) {
-                          togglePlayPause();
-                        } else {
-                          playTrack(reciter, SURAHS[0]);
-                        }
-                      }}
-                      className="px-3.5 py-1.5 rounded-lg bg-[#064E3B] text-white text-xs font-semibold hover:bg-[#053F30] transition-colors flex items-center gap-1.5 shadow-2xs"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-white" />
-                      <span>{isThisReciterActive && isPlaying ? 'Pause' : 'Play'}</span>
-                    </button>
-                  </div>
-
-                </div>
-              </div>
+                {/* Reciter name only */}
+                <h3 className="font-editorial text-base sm:text-lg font-bold text-[#141A17] dark:text-[#F3EFE6] group-hover:text-[#064E3B] dark:group-hover:text-[#34D399] transition-colors mt-3 text-center line-clamp-2 leading-snug">
+                  {reciter.name}
+                </h3>
+              </button>
             );
           })}
         </div>

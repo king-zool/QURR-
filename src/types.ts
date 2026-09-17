@@ -157,7 +157,6 @@ export type ActiveView =
   | "reciters"
   | "reciter-profile"
   | "quran"
-  | "heritage"
   | "submit-reciter"
   | "admin"
   | "curator-portal"
